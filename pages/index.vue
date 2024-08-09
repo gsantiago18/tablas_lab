@@ -11,6 +11,11 @@ v-container.secundary(fill-height)
   v-alert(type="error") Cuidado! Ocurrio un error
 
   v-data-table(:headers="headers" :items="info")
+    template(#item.opcion="{ item }")
+      
+      v-btn(color="primary" @click="handleEdit(item)") Editar
+      v-btn(color="error" @click="handleDelete(item)") Eliminar
+      
 
   
 
@@ -37,7 +42,8 @@ export default {
         value:'id'
       },
       {
-        text:'Opcion',  
+        text:'Opcion', 
+        value:'opcion' 
       }
       ],
       info:[

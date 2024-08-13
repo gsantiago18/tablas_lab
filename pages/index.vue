@@ -3,6 +3,7 @@
     v-row
       v-col(cols="12")
         v-form(ref="myForm")
+          h1.text-center INSCRIPCION DE USUARIOS
           v-text-field(
             v-model="newUser.name",
             label="Nombre",
@@ -18,9 +19,11 @@
             label="ID",
             required
           )
-          v-btn(type="submit", color="success",@click.prevent="addUser") Agregar Usuario
-          
-          v-btn(type="submit", color="success",@click.prevent="updateUser") Actualizar Usuario
+          v-row.justify-center.mt-4
+            v-col(cols="4")
+              v-btn(type="submit",color="success",@click.prevent="addUser") Agregar Usuario
+            v-col(cols="4")  
+              v-btn(type="submit", color="disabled",@click.prevent="updateUser") Actualizar Usuario
       v-col(cols="12")
         v-data-table(
           :headers="headers"
@@ -72,24 +75,23 @@
         this.newUser.id=item.id
 
       },
-      updateUser(item){
-        const index = this.info.findIndex(user=>user.id==item.id)
-        if(index!==-1){
-          this.$set(this.info,index,{
-            name:this.newUser.name,
-            lastname:this.newUser.lastname,
-            id:this.newUser.id
-            
-          })
-          this.newUser = {
-            name: '',
-            lastname: '',
-            id: ''
-          };
-        }
-
-      },
+      updateUser() {
+      const index = this.info.findIndex(user => user.id === this.newUser.id);
+      if (index !== -1) {
+        this.$set(this.info, index, { ...this.newUser });
+        this.newUser = {
+          name: '',
+          lastname: '',
+          id: ''
+        };
+      }
+     },
       handleDelete(item){
+        const index = this.info.indexOf(item)
+        if (index!==-1){
+          this.info.splice(index,1)
+          alert('Usuario eliminado exitosamente')
+        }
 
       }
 

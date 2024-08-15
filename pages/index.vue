@@ -1,9 +1,14 @@
 <template lang="pug">
   v-container.secundary(fill-height)
+    v-row.justify-center.mt-2
+            v-col(cols="2")
+              v-btn(type="submit",color="success",@click="setlocale('es')") ES
+            v-col(cols="2")  
+              v-btn(type="submit",color="primary",@click="setlocale('en')") EN
     v-row
       v-col(cols="12")
         v-form(ref="myForm")
-          h1.text-center INSCRIPCION DE USUARIOS
+          h1.text-center {{t('inscription')}}
           v-text-field(
             v-model="newUser.name",
             label="Nombre",
@@ -36,6 +41,9 @@
   
 
   <script>
+
+import { inject } from 'vue';
+
   export default {
     name: 'IndexPage',  
     data() {
@@ -57,7 +65,7 @@
             lastname: 'Gonzalez',
             id: '401928'
           }
-        ]
+        ],
       };
     },
     methods: {
@@ -94,6 +102,13 @@
           alert('Usuario eliminado exitosamente')
         }
 
+      },
+      setlocale(newlocale){
+        this.$i18n.locale=newlocale
+      },
+      setup() {
+      const t = inject('$t');
+      return { t };
       }
 
     }

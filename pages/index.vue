@@ -8,7 +8,7 @@
     v-row
       v-col(cols="12")
         v-form(ref="myForm")
-          h1.text-center {{t('inscription')}}
+          h1.text-center INSCRIPCION DE USUARIOS
           v-text-field(
             v-model="newUser.name",
             label="Nombre",

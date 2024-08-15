@@ -67,6 +67,7 @@
           this.newUser.name = "";
           this.newUser.lastname = "";
           this.newUser.id = null;
+          alert('Usuario agregado exitosamente')
         }
       },
       handleEdit(item){

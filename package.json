@@ -9,14 +9,12 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxtjs/i18n": "^8.4.0",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
-    "nuxt-i18n": "^6.28.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
     "vue": "^2.7.10",
-    "vue-i18n": "^8.27.2",
+    "@nuxtjs/i18n": "^7.3.1",
     "vue-router": "^3.6.5",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",

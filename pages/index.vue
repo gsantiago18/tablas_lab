@@ -2,50 +2,49 @@
   v-container.secundary(fill-height)
     v-row.justify-center.mt-2
             v-col(cols="2")
-              v-btn(type="submit",color="success",@click="setlocale('es')") ES
+              v-btn(type="submit",color="success",@click="$i18n.locale='es'") ES
             v-col(cols="2")  
-              v-btn(type="submit",color="primary",@click="setlocale('en')") EN
+              v-btn(type="submit",color="primary",@click="$i18n.locale='en'") EN
     v-row
       v-col(cols="12")
         v-form(ref="myForm")
-          h1.text-center INSCRIPCION DE USUARIOS
+          h1.text-center {{ $t('message.inscription') }}
           v-text-field(
             v-model="newUser.name",
-            label="Nombre",
+            v-bind:label="$t('form.name')"
             required
           )
           v-text-field(
             v-model="newUser.lastname",
-            label="Apellido",
+            v-bind:label="$t('form.lastname')"
             required
           )
           v-text-field(
             v-model="newUser.id",
-            label="ID",
+            v-bind:label="$t('form.id')"
             required
           )
           v-row.justify-center.mt-4
             v-col(cols="4")
-              v-btn(type="submit",color="success",@click.prevent="addUser") Agregar Usuario
+              v-btn(type="submit",color="success",@click.prevent="addUser") {{ $t('message.adduser') }}
             v-col(cols="4")  
-              v-btn(type="submit", color="disabled",@click.prevent="updateUser") Actualizar Usuario
+              v-btn(type="submit", color="disabled",@click.prevent="updateUser") {{ $t('message.updateus') }}
       v-col(cols="12")
         v-data-table(
           :headers="headers"
           :items="info"
         )      
           template(#item.opcion="{ item }")
-            v-btn(color="primary" @click.prevent="handleEdit(item)") Editar
-            v-btn(color="error" @click="handleDelete(item)") Eliminar
+            v-btn(color="primary" @click.prevent="handleEdit(item)") {{ $t('message.edit') }}
+            v-btn(color="error" @click="handleDelete(item)") {{ $t('message.delete') }}
   </template>
   
 
   <script>
 
-import { inject } from 'vue';
-
   export default {
-    name: 'IndexPage',  
+    name: 'IndexPage', 
+
     data() {
       return {
         newUser: {
@@ -53,9 +52,11 @@ import { inject } from 'vue';
           lastname: "",
           id: null
         },
+        
+
         headers: [
-          { text: 'Nombre', value: 'name' },
-          { text: 'Apellido', value: 'lastname' },
+          { text: this.$t('form.name'), value: 'name' },
+          { text: this.$t('form.lastname'), value: 'lastname' },
           { text: 'Cedula', value: 'id' },
           { text: 'Opcion', value: 'opcion' }
         ],
@@ -103,9 +104,10 @@ import { inject } from 'vue';
         }
 
       },
-      setlocale(newlocale){
-        this.$i18n.locale=newlocale
+      setLocale(locale){
+        this.$i18n.locale=locale
       },
+
       setup() {
       const t = inject('$t');
       return { t };

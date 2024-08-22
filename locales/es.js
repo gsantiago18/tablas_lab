@@ -14,6 +14,7 @@ export default{
     form: {
       name: "Nombre",
       lastname: "Apellido",
-      id:"Identificacion"
+      id:"Cedula",
+      option:"Opcion"
     }
   }

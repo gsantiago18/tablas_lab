@@ -57,8 +57,8 @@
         headers: [
           { text: this.$t('form.name'), value: 'name' },
           { text: this.$t('form.lastname'), value: 'lastname' },
-          { text: 'Cedula', value: 'id' },
-          { text: 'Opcion', value: 'opcion' }
+          { text: this.$t('form.id'), value: 'id' },
+          { text: this.$t('form.option'), value: 'opcion' }
         ],
         info: [
           {
@@ -70,22 +70,31 @@
       };
     },
     methods: {
-      addUser() {
+      async addUser() {
         if (this.newUser.name && this.newUser.lastname && this.newUser.id) {
           this.info.push({ ...this.newUser });
           this.newUser.name = "";
           this.newUser.lastname = "";
           this.newUser.id = null;
-          alert('Usuario agregado exitosamente')
+        }
+        const lang=this.$i18n.locale
+        try{
+          const response = await this.$axios.post('/save',
+           {locale: lang},
+          {headers:{'Content-Type': 'application/json' }})
+          alert(response.data.message)
+        }
+        catch(error){
+          alert('Error al guardar:  ', error)
         }
       },
-      handleEdit(item){
+      async handleEdit(item){
         this.newUser.name=item.name
         this.newUser.lastname=item.lastname
         this.newUser.id=item.id
 
       },
-      updateUser() {
+      async updateUser() {
       const index = this.info.findIndex(user => user.id === this.newUser.id);
       if (index !== -1) {
         this.$set(this.info, index, { ...this.newUser });
@@ -93,15 +102,35 @@
           name: '',
           lastname: '',
           id: ''
-        };
+        }
+        const lang=this.$i18n.locale
+        try{
+            const response = await this.$axios.post('/update',
+            {locale: lang},
+            {headers:{'Content-Type': 'application/json' }})
+            alert(response.data.message)
+          }
+          catch(error){
+            alert('Error al Actualizar:  ', error)
+          }
+
       }
      },
-      handleDelete(item){
+      async handleDelete(item){
         const index = this.info.indexOf(item)
         if (index!==-1){
-          this.info.splice(index,1)
-          alert('Usuario eliminado exitosamente')
+          this.info.splice(index,1)   
         }
+        const lang=this.$i18n.locale
+          try{
+            const response = await this.$axios.delete('/delete',
+            {locale: lang},
+            {headers:{'Content-Type': 'application/json' }})
+            alert(response.data.message)
+          }
+          catch(error){
+            alert('Error al Eliminar:  ', error)
+          }
 
       },
       setLocale(locale){

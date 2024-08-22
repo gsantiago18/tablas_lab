@@ -18,6 +18,7 @@ export default{
     form:{
         name: "Name",
         lastname: "Last Name",
-        id: "ID"
+        id: "ID",
+        option:"Option"
     }
 }
